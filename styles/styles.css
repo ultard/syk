@@ -1,0 +1,199 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.siteHeader {
+    text-align: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.studentName {
+    margin: 10px 0;
+}
+
+.mainNav {
+    text-align: center;
+    background-color: #eee;
+    padding: 10px;
+}
+
+.mainNav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #333;
+}
+
+.mainNav a:hover {
+    text-decoration: underline;
+}
+
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.introSection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.studentPhoto {
+    width: 150px;
+    height: 150px;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.downloadResume {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.skillsSection h2,
+.bestProjectsSection h2,
+.projectsSection h2,
+.diarySection h2,
+.contactsSection h2 {
+    text-align: center;
+}
+
+.skillItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.skillItem span {
+    width: 120px;
+}
+
+.progressBar {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+    flex-grow: 1;
+}
+
+.projectsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.projectCard {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.projectCard img {
+    width: 100%;
+    height: auto;
+}
+
+.filters {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.filters button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.progressList {
+    list-style: none;
+    padding: 0;
+}
+
+.progressList li {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.addEntry {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.contactForm {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contactForm label {
+    display: block;
+    margin-top: 10px;
+}
+
+.contactForm input,
+.contactForm textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+}
+
+.contactForm button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.contactInfo {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.siteFooter {
+    text-align: center;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .introSection {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .studentPhoto {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+}
