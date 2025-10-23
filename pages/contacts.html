@@ -5,39 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Контакты - Портфолио Студента</title>
     <link rel="stylesheet" href="../styles/styles.css">
+    <style>
+        /* Минимальные стили для валидации */
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        .invalid {
+            border-color: red;
+            outline: none;
+        }
+        .success {
+            color: green;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <header class="siteHeader">
-        <div class="logo"> [ЛОГОТИП] </div>
-        <h1 class="studentName">Поздняков Глеб</h1>
-    </header>
-    <nav class="mainNav">
-        <a href="../index.html">Главная</a>
-        <a href="projects.html">Проекты</a>
-        <a href="diary.html">Дневник</a>
-        <a href="contacts.html">Контакты</a>
-    </nav>
-    <main>
-        <section class="contactsSection">
-            <h2>Свяжитесь со мной</h2>
-            <form class="contactForm">
-                <label for="name">Имя:</label>
-                <input type="text" id="name" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" required>
-                <label for="message">Сообщение:</label>
-                <textarea id="message" required></textarea>
-                <button type="submit">Отправить сообщение</button>
-            </form>
-            <div class="contactInfo">
-                <p>📧 pozdnyakov.g.a1@edu.mirea.ru</p>
-                <p>📱 GitHub: ultard</p>
-                <p>📍 Москва, Россия</p>
-            </div>
-        </section>
-    </main>
-    <footer class="siteFooter">
-        © 2025 Контакты
-    </footer>
+<header class="siteHeader">
+    <div class="logo"> [ЛОГОТИП] </div>
+    <h1 class="studentName">Поздняков Глеб</h1>
+</header>
+
+<nav class="mainNav">
+    <a href="../index.html">Главная</a>
+    <a href="projects.html">Проекты</a>
+    <a href="diary.html">Дневник</a>
+    <a href="contacts.html">Контакты</a>
+</nav>
+
+<main>
+    <section class="contactsSection">
+        <h2>Свяжитесь со мной</h2>
+        <form class="contactForm" id="contactForm" novalidate>
+            <label for="name">Имя:</label>
+            <input type="text" id="name" name="name">
+            <div class="error" id="nameError"></div>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <div class="error" id="emailError"></div>
+
+            <label for="message">Сообщение:</label>
+            <textarea id="message" name="message"></textarea>
+            <div class="error" id="messageError"></div>
+
+            <button type="submit">Отправить сообщение</button>
+            <div class="success" id="successMessage"></div>
+        </form>
+
+        <div class="contactInfo">
+            <p>📧 pozdnyakov.g.a1@edu.mirea.ru</p>
+            <p>📱 GitHub: ultard</p>
+            <p>📍 Москва, Россия</p>
+        </div>
+    </section>
+</main>
+
+<footer class="siteFooter">
+    © 2025 Поздняков Глеб
+</footer>
+
+<script>
+    document.getElementById('contactForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        document.querySelectorAll('.error').forEach(e => e.textContent = '');
+        document.querySelectorAll('input, textarea').forEach(el => el.classList.remove('invalid'));
+        document.getElementById('successMessage').textContent = '';
+
+        let isValid = true;
+
+        const name = document.getElementById('name');
+        const email = document.getElementById('email');
+        const message = document.getElementById('message');
+
+        if (name.value.trim() === '') {
+            document.getElementById('nameError').textContent = 'Введите имя.';
+            name.classList.add('invalid');
+            isValid = false;
+        }
+
+        const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+        if (email.value.trim() === '') {
+            document.getElementById('emailError').textContent = 'Введите email.';
+            email.classList.add('invalid');
+            isValid = false;
+        } else if (!emailPattern.test(email.value.trim())) {
+            document.getElementById('emailError').textContent = 'Введите корректный email.';
+            email.classList.add('invalid');
+            isValid = false;
+        }
+
+        if (message.value.trim() === '') {
+            document.getElementById('messageError').textContent = 'Введите сообщение.';
+            message.classList.add('invalid');
+            isValid = false;
+        }
+
+        if (isValid) {
+            document.getElementById('successMessage').textContent = 'Сообщение успешно отправлено!';
+            document.getElementById('contactForm').reset();
+        }
+    });
+</script>
 </body>
 </html>
