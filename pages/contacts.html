@@ -2,41 +2,28 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Контакты - Портфолио Студента</title>
     <link rel="stylesheet" href="../styles/styles.css">
     <style>
-        /* Минимальные стили для валидации */
-        .error {
-            color: red;
-            font-size: 0.9em;
-            margin-bottom: 10px;
-        }
-        .invalid {
-            border-color: red;
-            outline: none;
-        }
-        .success {
-            color: green;
-            margin-top: 10px;
-            font-weight: bold;
-        }
+        .error { color: red; font-size: 0.9em; margin-bottom: 10px; }
+        .invalid { border-color: red; outline: none; }
+        .success { color: green; margin-top: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Перейти к основному содержимому</a>
 <header class="siteHeader">
-    <div class="logo"> [ЛОГОТИП] </div>
+    <div class="logo">[ЛОГОТИП]</div>
     <h1 class="studentName">Поздняков Глеб</h1>
 </header>
-
 <nav class="mainNav">
     <a href="../index.html">Главная</a>
     <a href="projects.html">Проекты</a>
     <a href="diary.html">Дневник</a>
     <a href="contacts.html">Контакты</a>
 </nav>
-
-<main>
+<main id="main">
     <section class="contactsSection">
         <h2>Свяжитесь со мной</h2>
         <form class="contactForm" id="contactForm" novalidate>
@@ -63,7 +50,6 @@
         </div>
     </section>
 </main>
-
 <footer class="siteFooter">
     © 2025 Поздняков Глеб
 </footer>

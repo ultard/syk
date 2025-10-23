@@ -1,84 +1,157 @@
-body {
-    font-family: Arial, sans-serif;
+:root {
+    color-scheme: light dark;
+    --primary-color: #2563eb;
+    --text-color: #0b1020;
+    --bg-color: white;
+    --bg-color-secondary: #232323;
+    --border-color: #e2e8f0;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --radius: 0.75rem;
+    --transition: all 0.2s ease;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-2xl: 3rem;
+}
+
+* {
     margin: 0;
     padding: 0;
-    line-height: 1.6;
+    box-sizing: border-box;
 }
 
-.siteHeader {
-    text-align: center;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-bottom: 1px solid #ddd;
+html, body {
+    height: 100%;
 }
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
+body {
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;   /* Фолбэк */
+    min-height: 100svh;  /* Стабильный минимум */
+    min-height: 100dvh;  /* Динамическая высота */
+    display: flex;
+    flex-direction: column;
 }
 
-.studentName {
-    margin: 10px 0;
+main {
+    margin-top: 40px;
+    flex: 1;
+    padding-inline: clamp(0.75rem, 0.5rem + 1vw, 2rem); /* Плавные отступы */
 }
 
+/* Доступность из практики 15 */
+.skip-link {
+    position: absolute;
+    inset-inline-start: 1rem;
+    inset-block-start: -100%;
+    z-index: 10000;
+    padding: 0.5rem 0.75rem;
+    background: #111;
+    color: #fff;
+    border-radius: 0.5rem;
+    text-decoration: none;
+}
+
+.skip-link:focus, .skip-link:focus-visible {
+    inset-block-start: 1rem;
+}
+
+:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 2px;
+}
+
+a, button, input, textarea {
+    outline-offset: 2px;
+}
+
+/* Крупные цели на coarse pointer */
+@media (pointer: coarse) {
+    a, button, .mainNav a {
+        min-height: 44px;
+        padding: 0.75rem 1rem;
+    }
+}
+
+/* Уважение к снижению движения */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* Sticky-nav из практики 15 */
 .mainNav {
+    position: sticky;
+    top: 0;
+    padding-block-start: calc(0.75rem + env(safe-area-inset-top));
+    padding-block-end: 0.75rem;
+    padding-inline-start: calc(var(--space-md) + env(safe-area-inset-left));
+    padding-inline-end: calc(var(--space-md) + env(safe-area-inset-right));
+    background: var(--bg-color-secondary);
+    color: #fff;
+    z-index: 100;
+    isolation: isolate;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     text-align: center;
-    background-color: #eee;
-    padding: 10px;
 }
 
 .mainNav a {
-    margin: 0 15px;
+    margin: 0 1rem;
     text-decoration: none;
-    color: #333;
+    color: #fff;
 }
 
 .mainNav a:hover {
     text-decoration: underline;
 }
 
-main {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 0 20px;
+/* Header */
+.siteHeader {
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--bg-color);
 }
 
+/* Intro section with responsive image */
 .introSection {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .studentPhoto {
-    width: 150px;
-    height: 150px;
-    margin-right: 20px;
     border-radius: 50%;
+    object-fit: cover;
+    box-shadow: var(--shadow);
 }
 
 .downloadResume {
     display: inline-block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
+    padding: 0.75rem 1.5rem;
+    background: var(--primary-color);
+    color: #fff;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: var(--radius);
 }
 
-.skillsSection h2,
-.bestProjectsSection h2,
-.projectsSection h2,
-.diarySection h2,
-.contactsSection h2 {
+.skillsSection {
+    container-type: inline-size;
+    container-name: skills;
+}
+
+.skillsSection h2 {
     text-align: center;
+    font-size: clamp(1.5rem, 1.1rem + 2vw, 2rem);
 }
 
 .skillItem {
-    display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
 }
 
 .skillItem span {
@@ -86,66 +159,91 @@ main {
 }
 
 .progressBar {
-    background-color: #007bff;
-    color: white;
+    background: var(--primary-color);
+    color: #fff;
     text-align: center;
     height: 20px;
     line-height: 20px;
     flex-grow: 1;
 }
 
+@supports (container-type: inline-size) {
+    @container skills (min-width: 600px) {
+        .skillsSection {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+        }
+    }
+}
+
 .projectsGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: var(--space-lg);
 }
 
 .projectCard {
-    border: 1px solid #ddd;
-    padding: 10px;
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1rem;
     text-align: center;
-    cursor: pointer;
+    transition: transform var(--transition);
+    min-width: 0;
+}
+
+.projectCard:hover {
+    transform: translateY(-4px);
 }
 
 .projectCard img {
     width: 100%;
     height: auto;
+    border-radius: var(--radius);
+    object-fit: cover;
 }
 
+/* Filters */
 .filters {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 1.5rem;
 }
 
 .filters button {
-    margin: 0 5px;
-    padding: 5px 10px;
-    background-color: #f4f4f4;
-    border: 1px solid #ddd;
+    padding: 0.5rem 1rem;
+    background: #f4f4f4;
+    border: 1px solid var(--border-color);
+    margin: 0 0.5rem;
     cursor: pointer;
+    border-radius: var(--radius);
 }
 
+/* Diary */
 .progressList {
     list-style: none;
     padding: 0;
 }
 
 .progressList li {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
 }
 
 .addEntry {
     display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
+    margin: 1.5rem auto;
+    padding: 0.75rem 1.5rem;
+    background: #28a745;
+    color: #fff;
     border: none;
     cursor: pointer;
+    border-radius: var(--radius);
 }
 
+/* Contacts form */
 .contactForm {
     max-width: 600px;
     margin: 0 auto;
@@ -153,39 +251,39 @@ main {
 
 .contactForm label {
     display: block;
-    margin-top: 10px;
+    margin-top: 1rem;
 }
 
-.contactForm input,
-.contactForm textarea {
+.contactForm input, .contactForm textarea {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
 }
 
 .contactForm button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
+    padding: 0.75rem 1.5rem;
+    background: var(--primary-color);
+    color: #fff;
     border: none;
     cursor: pointer;
+    border-radius: var(--radius);
 }
 
 .contactInfo {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 1.5rem;
 }
 
 .siteFooter {
     text-align: center;
-    padding: 10px;
-    background-color: #f4f4f4;
-    border-top: 1px solid #ddd;
-    margin-top: 20px;
+    padding: 1rem;
+    background: var(--bg-color);
+    border-top: 1px solid var(--border-color);
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
     .introSection {
         flex-direction: column;
@@ -193,7 +291,10 @@ main {
     }
 
     .studentPhoto {
-        margin-right: 0;
-        margin-bottom: 20px;
+        margin: 0 auto 1rem;
+    }
+
+    .projectsGrid {
+        grid-template-columns: 1fr;
     }
 }
