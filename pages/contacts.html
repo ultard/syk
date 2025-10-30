@@ -6,9 +6,22 @@
     <title>Контакты - Портфолио Студента</title>
     <link rel="stylesheet" href="../styles/styles.css">
     <style>
-        .error { color: red; font-size: 0.9em; margin-bottom: 10px; }
-        .invalid { border-color: red; outline: none; }
-        .success { color: green; margin-top: 10px; font-weight: bold; }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .invalid {
+            border-color: red;
+            outline: none;
+        }
+
+        .success {
+            color: green;
+            margin-top: 10px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -17,31 +30,32 @@
     <div class="logo">[ЛОГОТИП]</div>
     <h1 class="studentName">Поздняков Глеб</h1>
 </header>
-<nav class="mainNav">
+<nav class="mainNav" aria-label="Навигация">
     <a href="../index.html">Главная</a>
-    <a href="projects.html">Проекты</a>
-    <a href="diary.html">Дневник</a>
-    <a href="contacts.html">Контакты</a>
+    <a href="./projects.html">Проекты</a>
+    <a href="./diary.html">Дневник</a>
+    <a href="./contacts.html">Контакты</a>
 </nav>
 <main id="main">
     <section class="contactsSection">
         <h2>Свяжитесь со мной</h2>
-        <form class="contactForm" id="contactForm" novalidate>
-            <label for="name">Имя:</label>
-            <input type="text" id="name" name="name">
+        <form class="contactForm" id="contactForm" novalidate aria-describedby="successMessage">
+            <label for="name">Имя: <span aria-hidden="true">*</span></label>
+            <input type="text" id="name" name="name" required aria-describedby="nameError">
             <div class="error" id="nameError"></div>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email">
+            <label for="email">Email: <span aria-hidden="true">*</span></label>
+            <input type="email" id="email" name="email" required aria-describedby="emailError">
             <div class="error" id="emailError"></div>
 
-            <label for="message">Сообщение:</label>
-            <textarea id="message" name="message"></textarea>
+            <label for="message">Сообщение: <span aria-hidden="true">*</span></label>
+            <textarea id="message" name="message" required aria-describedby="messageError"></textarea>
             <div class="error" id="messageError"></div>
 
             <button type="submit">Отправить сообщение</button>
-            <div class="success" id="successMessage"></div>
+            <div class="success" id="successMessage" aria-live="polite"></div>
         </form>
+
 
         <div class="contactInfo">
             <p>📧 pozdnyakov.g.a1@edu.mirea.ru</p>
@@ -71,25 +85,37 @@
         if (name.value.trim() === '') {
             document.getElementById('nameError').textContent = 'Введите имя.';
             name.classList.add('invalid');
+            name.ariaInvalid = 'true';
             isValid = false;
+        } else {
+            name.removeAttribute('aria-invalid');
         }
 
         const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
         if (email.value.trim() === '') {
             document.getElementById('emailError').textContent = 'Введите email.';
             email.classList.add('invalid');
+            email.setAttribute('aria-invalid', 'true');
             isValid = false;
         } else if (!emailPattern.test(email.value.trim())) {
             document.getElementById('emailError').textContent = 'Введите корректный email.';
             email.classList.add('invalid');
+            email.setAttribute('aria-invalid', 'true');
             isValid = false;
+        } else {
+            email.removeAttribute('aria-invalid');
         }
 
         if (message.value.trim() === '') {
             document.getElementById('messageError').textContent = 'Введите сообщение.';
             message.classList.add('invalid');
+            name.setAttribute('aria-invalid', 'true');
+
             isValid = false;
+        } else {
+            name.removeAttribute('aria-invalid');
         }
+
 
         if (isValid) {
             document.getElementById('successMessage').textContent = 'Сообщение успешно отправлено!';
